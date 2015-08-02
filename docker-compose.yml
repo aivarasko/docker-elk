@@ -1,0 +1,26 @@
+elasticsearch:
+  build: elasticsearch/
+  ports:
+    - "9200:9200"
+logstash:
+  image: logstash
+  links:
+    - elasticsearch
+  ports:
+    - "5000:5000"
+  command: logstash -f /etc/logstash/logstash.conf
+  volumes:
+    - logstash/etc/:/etc/logstash/
+kibana:
+  image: kibana
+  links: 
+    - elasticsearch
+  ports:
+    - "5601:5601"
+packetbeat:
+  image: packetbeat/packetbeat-agent
+  command: packetbeat -e -c /etc/packetbeat/packetbeat.conf
+  net: "host"
+  volumes:
+    - packetbeat/etc/:/etc/packetbeat/
+  restart: always
