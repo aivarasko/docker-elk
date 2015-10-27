@@ -3,16 +3,16 @@ elasticsearch:
   ports:
     - "9200:9200"
 logstash:
-  image: logstash
+  image: logstash:1.5
   links:
     - elasticsearch
   ports:
     - "5000:5000"
   command: logstash -f /etc/logstash/logstash.conf
   volumes:
-    - logstash/etc/:/etc/logstash/
+    - ./logstash/etc/:/etc/logstash/
 kibana:
-  image: kibana
+  image: kibana:4.1
   links: 
     - elasticsearch
   ports:
