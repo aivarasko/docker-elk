@@ -17,10 +17,3 @@ kibana:
     - elasticsearch
   ports:
     - "5601:5601"
-packetbeat:
-  image: packetbeat/packetbeat-agent
-  command: packetbeat -e -c /etc/packetbeat/packetbeat.conf
-  net: "host"
-  volumes:
-    - packetbeat/etc/:/etc/packetbeat/
-  restart: always
